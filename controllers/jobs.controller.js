@@ -120,6 +120,13 @@ exports.updateJob = async (req, res, next) => {
 exports.applyJob = async (req, res, next) => {
   try {
     const job = await getJobDetailsByIdService(req.params.id);
+    console.log(job);
+    if (!job) {
+      res.status(400).json({
+        status: "failed",
+        error: "Not found any job with this id!",
+      });
+    }
 
     if (new Date() > new Date(job.deadline)) {
       if (req.files) {
@@ -145,7 +152,15 @@ exports.applyJob = async (req, res, next) => {
       });
     }
 
-    const resumeLink = `${req.files[0].destination}/${req.files[0].filename}`;
+    let resumeLink;
+    if (req.files) {
+      resumeLink = `${req?.files[0]?.destination}/${req?.files[0]?.filename}`;
+    }
+
+    console.log(
+      "🚀 ~ file: jobs.controller.js ~ line 156 ~ exports.applyJob= ~ resumeLink",
+      resumeLink
+    );
 
     const result = await applyJobService(req.params.id, req.user, resumeLink);
 
@@ -155,6 +170,10 @@ exports.applyJob = async (req, res, next) => {
       data: result,
     });
   } catch (error) {
+    console.log(
+      "🚀 ~ file: jobs.controller.js ~ line 165 ~ exports.applyJob= ~ error",
+      error
+    );
     res.status(400).json({
       status: "failed",
       message: "Failed to apply job",
