@@ -1,4 +1,7 @@
-const { getManagerPostedJobsService } = require("../services/manager.service");
+const {
+  getManagerPostedJobsService,
+  getManagerJobDetailsByIdService,
+} = require("../services/manager.service");
 
 module.exports.getManagerPostedJobs = async (req, res) => {
   try {
@@ -16,9 +19,9 @@ module.exports.getManagerPostedJobs = async (req, res) => {
     });
   }
 };
-module.exports.getJobDetailsById = async (req, res) => {
+module.exports.getManagerJobDetailsById = async (req, res) => {
   try {
-    const result = await getJobDetailsByIdService(req.params.id);
+    const result = await getManagerJobDetailsByIdService(req.params.id);
     console.log(result);
     res.status(200).json({
       status: "success",

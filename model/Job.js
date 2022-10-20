@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const validator = require("validator");
 const { ObjectId } = mongoose.Types;
 
 const jobSchema = mongoose.Schema(
@@ -12,29 +11,29 @@ const jobSchema = mongoose.Schema(
       type: String,
       required: [true, "Job description is required"],
     },
-    jobCategory: {
+    category: {
       type: String,
       required: [true, "Job category is required"],
     },
-    jobLocation: {
+    location: {
       type: String,
       required: [true, "Job location is required"],
     },
-    jobType: {
+    type: {
       type: String,
       required: [true, "Job type is required"],
-      enum: ["full-time", "part-time", "remote"],
+      enum: ["full-time", "part-time", "intern"],
       default: "full-time",
     },
-    jobSalary: {
-      type: String,
+    salary: {
+      type: Number,
       required: [true, "Job Salary is required"],
     },
-    jobPostingDate: {
+    postingDate: {
       type: Date,
       default: Date.now,
     },
-    jobDeadline: {
+    deadline: {
       type: Date,
       required: [true, "Job Deadline is required"],
     },
@@ -42,17 +41,16 @@ const jobSchema = mongoose.Schema(
       type: Number,
       required: [true, "Number of Vacancy is required"],
     },
-    jobStatus: {
+    status: {
       type: String,
       enum: ["open", "closed"],
       default: "open",
     },
-    postedBy: {
+    hiringManager: {
       type: ObjectId,
       ref: "User",
     },
-    applications: [{ type: ObjectId, ref: "User" }],
-    resumes: [{ type: String }],
+    applications: [{ type: ObjectId, ref: "Application" }],
   },
   {
     timestamps: true,

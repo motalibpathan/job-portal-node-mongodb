@@ -1,11 +1,20 @@
 const multer = require("multer");
+const path = require("path");
 
 function uploader(subfolderPath, allowFileTypes, maxFileSize, errorMsg) {
   const storage = multer.diskStorage({
     destination: `uploads/${subfolderPath}`,
     filename: (req, file, cb) => {
-      const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-      cb(null, uniqueSuffix + "-" + file.originalname);
+      const fileExt = path.extname(file.originalname);
+      const fileName =
+        file.originalname
+          .replace(fileExt, "")
+          .toLowerCase()
+          .split(" ")
+          .join("-") +
+        "-" +
+        Date.now();
+      cb(null, fileName + fileExt);
     },
   });
 

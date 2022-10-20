@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const managerController = require("../controllers/manager.controller");
 const verifyToken = require("../middleware/verifyToken");
+const authorization = require("../middleware/authorization");
 
 router
   .route("/jobs")
@@ -16,12 +17,7 @@ router
   .get(
     verifyToken,
     authorization("admin", "hiring-manager"),
-    managerController.getJobDetailsById
+    managerController.getManagerJobDetailsById
   );
-
-// router
-//   .route("/:id")
-//   .patch(productController.updateProductById)
-//   .delete(productController.deleteProductById);
 
 module.exports = router;
