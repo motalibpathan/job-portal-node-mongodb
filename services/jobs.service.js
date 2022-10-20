@@ -45,7 +45,5 @@ exports.applyJobService = async (jobId, user, resumeLink) => {
     { $push: { applications: result._id } },
     { new: true }
   );
-  console.log("Printing updated job");
-  console.log(job);
   return result;
 };

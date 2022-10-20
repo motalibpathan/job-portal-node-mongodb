@@ -22,7 +22,7 @@ module.exports.getManagerPostedJobs = async (req, res) => {
 module.exports.getManagerJobDetailsById = async (req, res) => {
   try {
     const result = await getManagerJobDetailsByIdService(req.params.id);
-    console.log(result);
+
     res.status(200).json({
       status: "success",
       data: result,
