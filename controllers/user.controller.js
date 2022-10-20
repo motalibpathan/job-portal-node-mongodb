@@ -7,6 +7,12 @@ const { generateToken } = require("../utils/token");
 
 exports.signup = async (req, res) => {
   try {
+    const exists = await findUserByEmailService(req.body.email);
+    if (exists) {
+      return res
+        .status(500)
+        .json({ status: "failed", error: "User already exists" });
+    }
     const user = await signupService(req.body);
     const { password: pwd, ...others } = user.toObject();
     res.status(200).json({
@@ -15,7 +21,6 @@ exports.signup = async (req, res) => {
       user: others,
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ status: "failed", error });
   }
 };

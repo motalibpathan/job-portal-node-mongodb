@@ -17,8 +17,8 @@ app.get("/", (req, res) => {
   res.send("Route is working! YaY!");
 });
 
-app.use("/api/v1/jobs", jobRoute);
-app.use("/api/v1/manager", managerRoute);
-app.use("/api/v1/user", userRoute);
+app.use("/jobs", jobRoute);
+app.use("/manager", managerRoute);
+app.use("/user", userRoute);
 
 module.exports = app;
